@@ -5,15 +5,15 @@ Date::Date(size_t _day, size_t _month, size_t _year) :
 
 }
 
-size_t Date::getDay() {
+size_t Date::getDay() const {
     return day;
 }
 
-size_t Date::getMonth() {
+size_t Date::getMonth() const {
     return month;
 }
 
-size_t Date::getYear() {
+size_t Date::getYear() const {
     return year;
 }
 
