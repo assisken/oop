@@ -7,6 +7,9 @@ class LessonContainer {
 private:
     size_t size;
     Lesson* arr;
+
+    void expand();
+    void narrow();
 public:
     LessonContainer();
     ~LessonContainer();
@@ -15,12 +18,14 @@ public:
     LessonContainer& operator=(const LessonContainer& other);
     LessonContainer& operator=(LessonContainer&& other) noexcept;
 
-    void showLessons();
-    void addLesson(Lesson new_lesson);
-    void removeLesson();
-    void removeLesson(size_t index);
-    void editLesson();
-    void clearLesson();
+    bool outOfBounds(size_t index);
+
+    void show();
+    void add(Lesson new_lesson);
+    void remove();
+    void remove(size_t index);
+    void edit(size_t index, Lesson lesson);
+    void clear();
 };
 
 #endif

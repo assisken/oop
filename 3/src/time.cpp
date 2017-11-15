@@ -1,5 +1,6 @@
 #include <sstream>
 #include "../headers/time.hpp"
+#include "../headers/exceptions.hpp"
 
 Time::Time(size_t _hour, size_t _minute) :
         hour(_hour), minute(_minute), second(0){}
@@ -56,4 +57,32 @@ const std::string Time::getTime() const {
     stream << minute;
 
     return stream.str();
+}
+
+Time::Time(std::string input) {
+    hour = 0, minute = 0;
+    size_t len = input.length(), i = 0;
+    if(len > 5) {
+        throw TimeErr::wrong_format("много знаков");
+    } else if(len < 5) {
+        throw TimeErr::wrong_format("мало знаков");
+    }
+    for(; input[i] != ':'; i++) {
+        hour = hour * 10 + (input[i] - '0');
+        if(hour >= 24) {
+            throw TimeErr::wrong_format("слишком много часов");
+        }
+    }
+    if(i > 2) {
+        std::cout << "Aaaa";
+        exit(-1);
+    }
+
+    i++;
+    for(; i < len && input[i] != ':'; i++) {
+        minute = minute * 10 + (input[i] - '0');
+        if(minute >= 60) {
+            throw TimeErr::wrong_format("слишком много минут");
+        }
+    }
 }

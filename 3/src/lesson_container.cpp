@@ -32,25 +32,15 @@ LessonContainer &LessonContainer::operator=(LessonContainer &&other) noexcept {
     return *this;
 }
 
-void LessonContainer::showLessons() {
-    std::cout << "Уроки:" << std::endl;
-    for(size_t i = 0; i < size; i++) {
-        std::cout << i+1 << ": " << arr[i].getTitle() << " (" << arr[i].getClassName() << ") - ";
-        std::cout << arr[i].getTeacher().getFullName() << " в " << arr[i].getClassNum() << " с ";
-        std::cout << arr[i].getStart().getTime() << " до " << arr[i].getEnd().getTime() << std::endl;
-    }
-}
-
-void LessonContainer::addLesson(Lesson new_lesson) {
+void LessonContainer::expand() {
     size++;
     auto* new_arr = new Lesson[size];
     std::copy(arr, arr + size-1, new_arr);
     delete[] arr;
-    new_arr[size-1] = std::move(new_lesson);
     arr = new_arr;
 }
 
-void LessonContainer::removeLesson() {
+void LessonContainer::narrow() {
     if(size > 1) {
         size--;
         auto* new_arr = new Lesson[size];
@@ -64,11 +54,39 @@ void LessonContainer::removeLesson() {
     }
 }
 
+void LessonContainer::clear() {
+    size = 0;
+    delete[] arr;
+    arr = nullptr;
+}
 
+void LessonContainer::show() {
+    if(size == 0) {
+        std::cout << "Уроков нет." << std::endl;
+    } else {
+        std::cout << "Уроки:" << std::endl;
+        for (size_t i = 0; i < size; i++) {
+            std::cout << i + 1 << ": " << arr[i].getTitle() << " (" << arr[i].getClassName() << ") - ";
+            std::cout << arr[i].getTeacher() << " в " << arr[i].getClassNum() << " с ";
+            std::cout << arr[i].getStart().getTime() << " до " << arr[i].getEnd().getTime() << std::endl;
+        }
+    }
+}
 
-void LessonContainer::removeLesson(size_t index) {
-    index--;
-    if(index < size) {
+void LessonContainer::add(Lesson new_lesson) {
+    expand();
+    arr[size-1] = std::move(new_lesson);
+}
+
+void LessonContainer::remove() {
+    if(size > 1)
+        narrow();
+    else
+        clear();
+}
+
+void LessonContainer::remove(size_t index) {
+    if(!outOfBounds(index)) {
         if(size > 1) {
             size--;
             auto *new_arr = new Lesson[size];
@@ -83,18 +101,22 @@ void LessonContainer::removeLesson(size_t index) {
             delete[] arr;
             arr = new_arr;
         } else if(size == 1) {
-            size--;
-            delete[] arr;
-            arr = nullptr;
+            clear();
         }
     }
 }
 
-void LessonContainer::editLesson() {
-
+void LessonContainer::edit(size_t index, Lesson lesson) {
+    if(!outOfBounds(index)) {
+        arr[index] = std::move(lesson);
+    }
 }
 
-void LessonContainer::clearLesson() {
-
+bool LessonContainer::outOfBounds(size_t index) {
+    if (index >= size) {
+        throw std::out_of_range("большое число");
+    }
+    else
+        return false;
 }
 

@@ -17,6 +17,7 @@ public:
     Time& operator=(const Time& other) = default;
     Time& operator=(Time&& other) = default;
 
+    Time(std::string);
     Time(size_t _hour, size_t _minute);
     Time(size_t _hour, size_t _minute, size_t _second);
 
