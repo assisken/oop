@@ -5,16 +5,18 @@
 
 class Animal {
 protected:
-    std::string name;
-    std::string color;
-    std::string favorite_food;
+    const std::string name;
+    const std::string favorite_food;
+    const int color;
 public:
-    Animal();
-    Animal(std::string _name, std::string _color, std::string _favorite_food);
-    ~Animal() = default;
+    Animal(std::string _name, int _color, std::string _favorite_food);
 
-    virtual void make_sound() = 0;
-    virtual void eat() = 0;
+    virtual std::string make_sound() = 0;
+    virtual std::string eat() = 0;
+
+    const std::string getName();
+    const int getColor();
+    const std::string getFavoriteFood();
 };
 
 #endif
