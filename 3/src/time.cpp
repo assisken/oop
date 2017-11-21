@@ -74,8 +74,6 @@ Time::Time(std::string input) {
         }
     }
     if(i > 2) {
-        std::cout << "Aaaa";
-        exit(-1);
     }
 
     i++;

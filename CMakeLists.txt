@@ -8,6 +8,10 @@ set(HEADERS_DIR 3/headers)
 set(SOURCE_FILES 3/src 3/src/main.cpp)
 file(GLOB_RECURSE SOURCE 3/src/*.cpp)
 
+#set(HEADERS_DIR 4/headers)
+#set(SOURCE_FILES 4/src 4/src/main.cpp)
+#file(GLOB_RECURSE SOURCE 4/src/*.cpp)
+
 add_executable(
         ${PROJECT_NAME}
         ${SOURCE_FILES}

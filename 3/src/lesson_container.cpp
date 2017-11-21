@@ -1,6 +1,7 @@
 #include <utility>
 
 #include "../headers/lesson_container.hpp"
+#include <algorithm>
 
 LessonContainer::LessonContainer() : size(0), arr(nullptr) {}
 
@@ -75,7 +76,7 @@ void LessonContainer::show() {
 
 void LessonContainer::add(Lesson new_lesson) {
     expand();
-    arr[size-1] = std::move(new_lesson);
+    arr[size-1] = new_lesson;
 }
 
 void LessonContainer::remove() {
@@ -90,14 +91,16 @@ void LessonContainer::remove(size_t index) {
         if(size > 1) {
             size--;
             auto *new_arr = new Lesson[size];
-            if(index == 0) {
-                std::copy(arr + 1, arr + size+1, new_arr);
-            } else if(index == size) {
-                std::copy(arr, arr + size, new_arr);
-            } else {
-                std::copy(arr, arr + index, new_arr);
-                std::copy(arr + index+1, arr + size+1, new_arr+index);
-            }
+            size_t ind = 0;
+            std::copy_if(arr, arr + size + 1, new_arr, [&ind, index](Lesson l) {return ind++ != index; });
+//            if(index == 0) {
+//                std::copy(arr + 1, arr + size+1, new_arr);
+//            } else if(index == size) {
+//                std::copy(arr, arr + size, new_arr);
+//            } else {
+//                std::copy(arr, arr + index, new_arr);
+//                std::copy(arr + index+1, arr + size+1, new_arr+index);
+//            }
             delete[] arr;
             arr = new_arr;
         } else if(size == 1) {

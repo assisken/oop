@@ -5,13 +5,6 @@
 
 using namespace std;
 
-//std::string title;
-//std::string class_name;
-//std::string class_num;
-//std::string teacher;
-//Time start;
-//Time end;
-
 void clear_cin() {
     cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
 }
@@ -41,8 +34,6 @@ Lesson new_lesson() {
         } catch (TimeErr::wrong_format& exception) {
             cout << "У вас " << exception.what() << ". Введите ещё раз:" << endl;
             std::getline(std::cin, tmp);
-        } catch (...) {
-            cout << "Непредвиденная ошибка." << endl;
         }
     }
 
@@ -66,21 +57,21 @@ Lesson new_lesson() {
 int main() {
     size_t select = 1;
     LessonContainer lessons = LessonContainer();
-    lessons.add(Lesson(
-            "Биология", "5а", "501",
-            "Пупкин Виталий Стримович",
-            Time("13:15"), Time("14:00")
-    ));
-    lessons.add(Lesson(
-            "Микрохимия", "6а", "501",
-            "Пупкин Виталий Стримович",
-            Time("13:15"), Time("14:00")
-    ));
-    lessons.add(Lesson(
-            "Аналитическая органика", "7а", "501",
-            "Пупкин Виталий Стримович",
-            Time("13:15"), Time("14:00")
-    ));
+//    lessons.add(Lesson(
+//            "Биология", "5а", "501",
+//            "Пупкин Виталий Потокович",
+//            Time("13:15"), Time("14:00")
+//    ));
+//    lessons.add(Lesson(
+//            "Микрохимия", "6а", "501",
+//            "Пупкин Виталий Потокович",
+//            Time("13:15"), Time("14:00")
+//    ));
+//    lessons.add(Lesson(
+//            "Аналитическая органика", "7а", "501",
+//            "Пупкин Виталий Потокович",
+//            Time("13:15"), Time("14:00")
+//    ));
 
     do {
         cout << "1 - Показать уроки" << endl;
@@ -138,6 +129,7 @@ int main() {
         }
     } while(select != 0);
 
+    return 0;
 }
 
 // 1 - Показать книги;
