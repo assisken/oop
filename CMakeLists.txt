@@ -4,9 +4,9 @@ project(oop)
 set(CMAKE_CXX_STANDARD 14)
 
 
-set(HEADERS_DIR 4/headers)
-set(SOURCE_FILES 4/src 4/src/main.cpp)
-file(GLOB_RECURSE SOURCE 4/src/*.cpp)
+set(HEADERS_DIR 5/headers)
+set(SOURCE_FILES 5/src 5/src/main.cpp)
+file(GLOB_RECURSE SOURCE 5/src/*.cpp)
 
 add_executable(
         ${PROJECT_NAME}
