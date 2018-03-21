@@ -1,50 +1,32 @@
-#include <iostream>
-#include <fstream>
-#include <iomanip>
+#include "iostream"
 
-using namespace std;
+struct line {
+    struct line* next;
+    char a;
+    char b;
+    char not_a;
+    char not_b;
+    char a_and_b;
+    // ...
+};
 
-void printchar(int code) {
-    char ch = (char) code;
-    switch(ch) {
-        case '\n':
-            cout << "\\n";
-            break;
-        case '\r':
-            cout << "\\r";
-            break;
-        default:
-            cout << ch;
-    }
-    cout << ":" << setw(5) << code << endl;
+struct line* init_line(char _a, char _b) {
+    struct line* out = (struct line*) malloc(sizeof(struct line));
+    out->a = _a;
+    out->b = _b;
+    out->not_a = ~out->a;
+    out->not_b = ~out->b;
+    out->a_and_b = out->a & out->b;
+}
+
+void print_line(struct line* in) {
+    printf("%c %c %c %c %c\n", in->a, in->b, in->not_a, in->not_b, in->a_and_b);
 }
 
 int main() {
-    setlocale(LC_ALL, "");
-    string line;
-    ifstream file;
-    file.exceptions(std::ifstream::failbit | std::ifstream::badbit);
-    try {
-        file.open("file.txt", ios::out | ios::binary | ios::ate);
-    } catch (const ifstream::failure& e) {
-        cerr << "Error while opening file...";
-    }
-
-    size_t len = (size_t) file.tellg();
-    char *buf = new char[sizeof(char) * len];
-
-    int tmp;
-    file.seekg(0, ios::beg);
-    try {
-        for(size_t i = 0; i < len; i++) {
-            tmp = file.get();
-            printchar(tmp);
-        }
-    } catch (const ios_base::failure& e) {
-        cout << "Error while handling file...";
-    }
-
-    file.close();
-    delete[] buf;
-    return 0;
+    struct line *it = init_line('h', 'j');
+    struct line *ot = init_line('a', '1');
+    it->next = ot;
+    print_line(it);
+    print_line(it->next);
 }
